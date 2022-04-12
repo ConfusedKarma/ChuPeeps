@@ -16,7 +16,7 @@ CHU_USERS = list(set(int(x) for x in os.environ.get("CHU_USERS", "").split()))
 CHU_CHAT_ID = list(x for x in os.environ.get("CHU_CHAT_ID", "").replace("\n", " ").split(' '))
 
 
-@Client.on_message(filters.chat(CHU_USERS) & ~filters.command("start"))
+@Client.on_message(filters.chat(CHU_USERS) & ~filters.command(["start", "help"]))
 async def ChuPeepsForward(bot, update):
     if len(CHU_USERS) == 0 or len(CHU_CHAT_ID) == 0 or update.chat.id not in CHU_USERS:
         return
