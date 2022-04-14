@@ -36,14 +36,14 @@ async def start(bot, update):
     )
 
 
-WELCOME_CHANNEL = os.environ["WELCOME_CHANNEL"]
+WELCOME_ID = os.environ["WELCOME_ID"]
 
 JOIN_TEXT = """Hello {} Welcome to ChuPeeps"""
 
 BUTTONS = InlineKeyboardMarkup([[InlineKeyboardButton('ChuPeeps', url='https://telegram.me/ChuPeeps')]])
 
 
-@ChuPeeps.on_message(filters.chat(WELCOME_CHANNEL) & filters.new_chat_members)
+@ChuPeeps.on_message(filters.chat(WELCOME_ID) & filters.new_chat_members)
 async def WelcometoChuPeeps(client, message):
     if message.from_user.is_bot:
         await chat.kick_member(message.from_user.id)
