@@ -36,7 +36,7 @@ async def start(bot, update):
     )
 
 
-WELCOME_CHANNEL = os.environ["WELCOME_CHANNEL"]
+WELCOME_CHANNEL = -1001193710741
 
 JOIN_TEXT = """Hello {} Welcome to ChuPeeps"""
 
