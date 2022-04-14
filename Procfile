@@ -1,1 +1,1 @@
-worker: python3 chupeeps
+worker: python3 chupeeps.py
