@@ -5,8 +5,8 @@ bot_token = os.environ["BOT_TOKEN"]
 api_id = int(os.environ["API_ID"])
 api_hash = os.environ["API_HASH"]
 
-ChuPeepsBot = Client(
-    "ChuPeepsBot",
+ChuPeeps = Client(
+    "ChuPeeps",
     bot_token=bot_token,
     api_id=api_id,
     api_hash=api_hash
@@ -26,4 +26,4 @@ async def ChuPeepsForward(bot, update):
     except Exception as error:
         print(error)
 
-ChuPeepsBot.run()
+ChuPeeps.run()
