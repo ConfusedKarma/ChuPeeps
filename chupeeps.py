@@ -26,4 +26,12 @@ async def ChuPeepsForward(bot, update):
     except Exception as error:
         print(error)
 
+@ChuPeeps.on_message(filters.command(["start"]))
+async def start(bot, update):
+    await update.reply_text(
+        text=f"Hi {update.from_user.mention}"
+    )
+
+
+
 ChuPeeps.run()
