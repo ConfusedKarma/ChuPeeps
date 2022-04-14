@@ -1,5 +1,8 @@
 import os
+import asyncio
+from asyncio import sleep
 from pyrogram import Client, filters
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 bot_token = os.environ["BOT_TOKEN"]
 api_id = int(os.environ["API_ID"])
@@ -31,6 +34,30 @@ async def start(bot, update):
     await update.reply_text(
         text=f"Hi {update.from_user.mention}"
     )
+
+
+WELCOME_CHANNEL = os.environ["WELCOME_CHANNEL"]
+
+JOIN_TEXT = """Hello {} Welcome to ChuPeeps"""
+
+BUTTONS = InlineKeyboardMarkup([[InlineKeyboardButton('ChuPeeps', url='https://telegram.me/ChuPeeps')]])
+
+
+@ChuPeeps.on_message(filters.chat(WELCOME_CHANNEL) & filters.new_chat_members)
+async def WelcometoChuPeeps(client, message):
+    if message.from_user.is_bot:
+        await chat.kick_member(message.from_user.id)
+    else:
+        await message.reply_text(
+        text=JOIN_TEXT.format(message.from_user.mention),
+        reply_markup=BUTTONS,
+        disable_web_page_preview=True,
+        quote=True
+    )
+        await asyncio.sleep(60)
+        await message.delete()
+
+
 
 
 
