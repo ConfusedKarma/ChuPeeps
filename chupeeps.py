@@ -27,7 +27,7 @@ async def ChuPeepsForward(bot, update):
         for chat_id in CHU_CHAT_ID:
                 await update.forward(chat_id=chat_id)
                 await asyncio.sleep(15)
-                await bot.send_sticker(chat_id=chat_id, "CAACAgEAAx0ERyaUlQACRCdiWaamKvLC8nqECke4nVJ0S0tIPwACkQADizr_JDtGfCabJN7bHgQ")
+                await update.send_sticker(chat_id=chat_id, "CAACAgEAAx0ERyaUlQACRCdiWaamKvLC8nqECke4nVJ0S0tIPwACkQADizr_JDtGfCabJN7bHgQ")
     except Exception as error:
         print(error)
 
