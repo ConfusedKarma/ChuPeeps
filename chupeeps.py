@@ -26,8 +26,8 @@ async def ChuPeepsForward(bot, update):
     try:
         for chat_id in CHU_CHAT_ID:
                 await update.forward(chat_id=chat_id)
-                await asyncio.sleep(15)
-                await bot.send_message(chat_id=chat_id, ❌❌❌❌❌❌)
+                #await asyncio.sleep(15)
+                #await bot.send_message(chat_id=chat_id, ❌❌❌❌❌❌)
     except Exception as error:
         print(error)
 
