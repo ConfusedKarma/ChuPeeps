@@ -8,15 +8,23 @@ bot_token = os.environ["BOT_TOKEN"]
 api_id = int(os.environ["API_ID"])
 api_hash = os.environ["API_HASH"]
 
-ChuPeeps = Client(
-    "ChuPeeps",
-    bot_token=bot_token,
-    api_id=api_id,
-    api_hash=api_hash
-)
-
 CHU_USERS = list(set(int(x) for x in os.environ.get("CHU_USERS", "").split()))
 CHU_CHAT_ID = list(x for x in os.environ.get("CHU_CHAT_ID", "").replace("\n", " ").split(' '))
+
+
+class ChuPeeeps(Client):
+    def __init__(self):
+        super().__init__(
+            "ChuPeeps",
+            bot_token=bot_token,
+            api_id=api_id,
+            api_hash=api_hash
+        )
+
+async def start(self):
+    await super().start()
+    await self.send_message(CHU_CHAT_ID, "Bot Started Successfully!")
+    await self.delete()
 
 
 @ChuPeeps.on_message(filters.chat(CHU_USERS) & ~filters.command(["start", "help"]))
@@ -25,8 +33,6 @@ async def ChuPeepsForward(bot, update):
         return
     try:
         for chat_id in CHU_CHAT_ID:
-                await bot.send_message(CHU_CHAT_ID, "Bot Started Successfully!")
-                await bot.delete()
                 await update.forward(chat_id=chat_id)
                 await asyncio.sleep(15)
                 await bot.send_sticker(chat_id, "CAACAgEAAx0ERyaUlQACRCdiWaamKvLC8nqECke4nVJ0S0tIPwACkQADizr_JDtGfCabJN7bHgQ")
@@ -68,4 +74,10 @@ async def WelcometoChuPeeps(client, message):
 
 
 
-ChuPeeps.run()
+if __name__ == "__main__":
+    ChuPeeeps().run()
+
+
+
+
+
