@@ -27,7 +27,7 @@ async def start(self):
     await self.delete()
 
 
-@ChuPeeps.on_message(filters.chat(CHU_USERS) & ~filters.command(["start", "help"]))
+@Client.on_message(filters.chat(CHU_USERS) & ~filters.command(["start", "help"]))
 async def ChuPeepsForward(bot, update):
     if len(CHU_USERS) == 0 or len(CHU_CHAT_ID) == 0 or update.chat.id not in CHU_USERS:
         return
@@ -39,7 +39,7 @@ async def ChuPeepsForward(bot, update):
     except Exception as error:
         print(error)
 
-@ChuPeeps.on_message(filters.command("start"))
+@Client.on_message(filters.command("start"))
 async def start(bot, update):
     await update.reply_text(
         text=JOIN_TEXT.format(update.from_user.mention),
@@ -56,7 +56,7 @@ JOIN_TEXT = """Hello {} Welcome to ChuPeeps"""
 BUTTONS = InlineKeyboardMarkup([[InlineKeyboardButton('ChuPeeps', url='https://telegram.me/ChuPeeps')]])
 
 
-@ChuPeeps.on_message(filters.chat(WELCOME_ID) & filters.new_chat_members)
+@Client.on_message(filters.chat(WELCOME_ID) & filters.new_chat_members)
 async def WelcometoChuPeeps(client, message):
     if message.from_user.is_bot:
         await chat.kick_member(message.from_user.id)
