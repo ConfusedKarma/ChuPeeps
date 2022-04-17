@@ -25,7 +25,7 @@ async def ChuPeepsForward(bot, update):
         return
     try:
         for chat_id in CHU_CHAT_ID:
-                await bot.send_message(chat_id, "Bot Started Successfully!")
+                await bot.send_message(CHU_CHAT_ID, "Bot Started Successfully!")
                 await bot.delete()
                 await update.forward(chat_id=chat_id)
                 await asyncio.sleep(15)
