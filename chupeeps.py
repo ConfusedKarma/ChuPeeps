@@ -8,26 +8,18 @@ bot_token = os.environ["BOT_TOKEN"]
 api_id = int(os.environ["API_ID"])
 api_hash = os.environ["API_HASH"]
 
+ChuPeeps = Client(
+    "ChuPeeps",
+    bot_token=bot_token,
+    api_id=api_id,
+    api_hash=api_hash
+)
+
 CHU_USERS = list(set(int(x) for x in os.environ.get("CHU_USERS", "").split()))
 CHU_CHAT_ID = list(x for x in os.environ.get("CHU_CHAT_ID", "").replace("\n", " ").split(' '))
 
 
-class ChuPeeeps(Client):
-    def __init__(self):
-        super().__init__(
-            "ChuPeeps",
-            bot_token=bot_token,
-            api_id=api_id,
-            api_hash=api_hash
-        )
-
-async def start(self):
-    await super().start()
-    await self.send_message(CHU_CHAT_ID, "Bot Started Successfully!")
-    await self.delete()
-
-
-@Client.on_message(filters.chat(CHU_USERS) & ~filters.command(["start", "help"]))
+@ChuPeeps.on_message(filters.chat(CHU_USERS) & ~filters.command(["start", "help"]))
 async def ChuPeepsForward(bot, update):
     if len(CHU_USERS) == 0 or len(CHU_CHAT_ID) == 0 or update.chat.id not in CHU_USERS:
         return
@@ -39,7 +31,7 @@ async def ChuPeepsForward(bot, update):
     except Exception as error:
         print(error)
 
-@Client.on_message(filters.command("start"))
+@ChuPeeps.on_message(filters.command("start"))
 async def start(bot, update):
     await update.reply_text(
         text=JOIN_TEXT.format(update.from_user.mention),
@@ -56,7 +48,7 @@ JOIN_TEXT = """Hello {} Welcome to ChuPeeps"""
 BUTTONS = InlineKeyboardMarkup([[InlineKeyboardButton('ChuPeeps', url='https://telegram.me/ChuPeeps')]])
 
 
-@Client.on_message(filters.chat(WELCOME_ID) & filters.new_chat_members)
+@ChuPeeps.on_message(filters.chat(WELCOME_ID) & filters.new_chat_members)
 async def WelcometoChuPeeps(client, message):
     if message.from_user.is_bot:
         await chat.kick_member(message.from_user.id)
@@ -74,10 +66,4 @@ async def WelcometoChuPeeps(client, message):
 
 
 
-if __name__ == "__main__":
-    ChuPeeeps().run()
-
-
-
-
-
+ChuPeeps.run()
